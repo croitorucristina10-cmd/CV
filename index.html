@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cristina Croitoru — Graphic / Motion Designer</title>
+
+  <!-- Fonts (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#070712;
+      --text:#eef0ff;
+      --muted:#b7b9d7;
+      --muted2:#8f92b7;
+      --line:rgba(255,255,255,.10);
+
+      --a1:#c83cff;      /* magenta */
+      --a2:#5b7cff;      /* blue */
+      --a3:#23d5ab;      /* teal */
+
+      --radius: 24px;
+      --radius2: 16px;
+      --max: 1080px;
+
+      --shadow: 0 22px 70px rgba(0,0,0,.45);
+      --shadow2: 0 14px 45px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 12% 10%, rgba(200,60,255,.28), transparent 60%),
+        radial-gradient(900px 700px at 88% 12%, rgba(91,124,255,.22), transparent 58%),
+        radial-gradient(900px 700px at 60% 95%, rgba(35,213,171,.12), transparent 58%),
+        linear-gradient(180deg, #05050e 0%, #070712 60%, #05050e 100%);
+      overflow-x:hidden;
+    }
+
+    /* subtle noise overlay for premium texture */
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.08;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-size:180px 180px;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92; text-decoration:underline}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:44px 18px 72px;}
+    .grid{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap: 22px;
+      align-items:start;
+    }
+
+    /* floating accent blobs */
+    .blob{
+      position:fixed;
+      width:520px; height:520px;
+      border-radius:999px;
+      filter: blur(28px);
+      opacity:.18;
+      z-index:-1;
+      transform: translate3d(0,0,0);
+      animation: floaty 12s ease-in-out infinite;
+    }
+    .blob.b1{
+      left:-160px; top:-140px;
+      background: radial-gradient(circle at 30% 30%, var(--a1), transparent 62%);
+    }
+    .blob.b2{
+      right:-220px; top:40px;
+      background: radial-gradient(circle at 60% 40%, var(--a2), transparent 62%);
+      animation-delay: -4s;
+    }
+    .blob.b3{
+      left:45%; bottom:-260px;
+      background: radial-gradient(circle at 40% 60%, var(--a3), transparent 62%);
+      animation-delay: -7s;
+    }
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0) }
+      50%{ transform: translateY(18px) }
+    }
+
+    /* premium “glass + gradient border” card */
+    .gcard{
+      position:relative;
+      border-radius: var(--radius);
+      padding: 1px; /* border thickness */
+      background: linear-gradient(135deg,
+        rgba(200,60,255,.55),
+        rgba(91,124,255,.40),
+        rgba(35,213,171,.30)
+      );
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .gcard > .surface{
+      border-radius: calc(var(--radius) - 1px);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* HERO */
+    .hero .surface{ padding: 26px; }
+    .top{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .nameblock{display:flex; flex-direction:column; gap:6px}
+    .name{
+      font-size: 36px;
+      letter-spacing: -0.04em;
+      line-height: 1.03;
+      margin:0;
+      font-weight: 800;
+    }
+    .role{
+      margin:0;
+      color:rgba(238,240,255,.80);
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    /* ✅ PERFECT CIRCLE PHOTO (gradient ring) */
+    .photo{
+      width:169px; 
+      height:169px;
+      padding:2px;
+      border-radius:50%;
+      box-shadow: var(--shadow2);
+      flex:0 0 auto;
+    }
+    .photo img{
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      object-fit:cover;
+      object-position: 41% center;
+      display:block;
+      background: rgba(255,255,255,.08);
+    }
+
+    .hint{ font-size:12px; color:var(--muted2); margin-top:12px; }
+
+    /* Chips */
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+    .chip{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,10,18,.38);
+      padding:9px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: rgba(238,240,255,.86);
+      display:flex; gap:8px; align-items:center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .spark{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, transparent 60%),
+                  linear-gradient(135deg, var(--a1), var(--a2));
+      box-shadow: 0 0 0 3px rgba(255,255,255,.05);
+    }
+
+    /* Standard cards */
+    .card{ box-shadow: var(--shadow2); }
+    .card .surface{ padding: 22px; }
+
+    .sectionTitle{
+      display:flex; align-items:center; gap:12px;
+      margin:0 0 14px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(238,240,255,.92);
+    }
+    .sectionTitle .line{
+      height:1px; flex:1;
+      background: linear-gradient(90deg, rgba(255,255,255,.20), transparent);
+      opacity:.9;
+    }
+
+    .profile{
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+      margin:0;
+    }
+
+    /* Sidebar */
+    .sideStack{display:grid; gap:18px}
+    .contact{display:grid; gap:10px; margin-top:2px;}
+    .item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 12px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(10,10,18,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .item:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+    }
+    .ico{
+      width:30px; height:30px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(200,60,255,.16), rgba(91,124,255,.10));
+      flex:0 0 auto;
+    }
+    .ico svg{width:16px; height:16px; opacity:.95}
+    .item .label{font-size:12px; color: var(--muted2); margin:0 0 2px;}
+    .item .value{
+      font-size: 13px;
+      color: rgba(238,240,255,.94);
+      margin:0;
+      font-weight: 600;
+      letter-spacing: .01em;
+      word-break: break-word;
+    }
+
+    .skills{display:flex; flex-wrap:wrap; gap:10px;}
+    .tag{
+      font-size: 12px;
+      color: rgba(238,240,255,.86);
+      border:1px solid rgba(255,255,255,.12);
+      padding:8px 10px;
+      border-radius: 999px;
+      background: rgba(10,10,18,.35);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .tag:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+
+    /* Main column */
+    .mainStack{display:grid; gap:18px}
+
+    /* ✅ EXPERIENCE SPACING FIX */
+    main .card .surface{
+      padding-top: 28px; /* extra breathing room for the title */
+    }
+    .timeline{
+      margin-top: 18px;   /* separate title from first item */
+      padding-left: 18px;
+      position:relative;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute; left:7px; top:8px; bottom:8px;
+      width:2px;
+      background: linear-gradient(180deg,
+        rgba(200,60,255,.65),
+        rgba(91,124,255,.35),
+        rgba(35,213,171,.20)
+      );
+      opacity:.85;
+      border-radius:999px;
+    }
+
+    .xp{
+      position:relative;
+      margin: 0 0 14px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(16,17,34,.50), rgba(8,9,18,.32));
+      overflow:hidden;
+    }
+    .xp:last-child{ margin-bottom:0; }
+    .xp::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 240px at 15% 0%, rgba(200,60,255,.14), transparent 60%),
+        radial-gradient(520px 240px at 85% 0%, rgba(91,124,255,.12), transparent 60%);
+      opacity:.8;
+      z-index:0;
+    }
+    .xp > *{position:relative; z-index:1}
+
+
+    .xpTop{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .xpRole{
+      font-weight: 800;
+      margin:0;
+      letter-spacing: -.01em;
+    }
+    .xpCompany{margin:4px 0 0; color: var(--muted); font-weight: 600; font-size: 13px;}
+    .xpMeta{
+      text-align:right;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.35;
+      white-space:nowrap;
+    }
+    .xpBody{margin: 10px 0 0; color: var(--muted); font-size: 13.5px; line-height: 1.6;}
+    .xpBullets{margin: 10px 0 0; padding-left: 18px; color: var(--muted); font-size: 13.5px; line-height: 1.6;}
+    .xpBullets li{margin: 6px 0}
+    .pillRow{margin-top: 12px; display:flex; flex-wrap:wrap; gap:8px;}
+    .pill{
+      font-size: 11px;
+      color: rgba(238,240,255,.90);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(200,60,255,.12), rgba(91,124,255,.10));
+    }
+
+    /* Education + Languages */
+    .eduRow{display:grid; grid-template-columns: 1fr; gap:10px;}
+    .edu{
+      padding: 12px 14px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(10,10,18,.35);
+    }
+    .edu strong{display:block; font-size:13px}
+    .edu span{display:block; font-size:12px; color:var(--muted2); margin-top:3px}
+
+    .lang{display:grid; gap:10px;}
+    .bar{
+      padding: 12px 14px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(10,10,18,.35);
+    }
+    .barTop{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;}
+    .barTop strong{font-size:13px}
+    .barTop span{font-size:12px; color:var(--muted2)}
+    .meter{
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .meter > i{
+      display:block; height:100%;
+      width: 60%;
+      background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3));
+      border-radius: 999px;
+    }
+
+    .foot{
+      margin-top: 16px;
+      color: var(--muted2);
+      font-size: 12px;
+      text-align:center;
+      opacity:.95;
+    }
+
+    /* responsive */
+    @media (max-width: 960px){
+      .grid{grid-template-columns: 1fr;}
+      .xpMeta{text-align:left; white-space:normal}
+      .timeline{padding-left: 16px;}
+      .timeline::before{left:6px;}
+      .node{left:-4px;}
+    }
+
+    /* print */
+    @media print{
+      .blob, body::after{display:none !important;}
+      body{background:#fff !important; color:#111 !important;}
+      .wrap{padding:0; max-width:none;}
+      .gcard{
+        background:#fff !important;
+        padding:0 !important;
+        box-shadow:none !important;
+      }
+      .gcard > .surface{
+        background:#fff !important;
+        border:1px solid #ddd !important;
+        box-shadow:none !important;
+        backdrop-filter:none !important;
+      }
+      .chip,.tag,.item,.edu,.bar,.xp{
+        background:#fff !important;
+        border-color:#ddd !important;
+        box-shadow:none !important;
+      }
+      .xp::before{display:none !important;}
+      .timeline::before{background:#ddd !important;}
+      .profile,.xpBody,.xpBullets,.item .label,.item .value,.tag,.chip{color:#222 !important;}
+      .name,.xpRole{color:#000 !important;}
+      .role,.xpCompany,.xpMeta{color:#444 !important;}
+      .meter{background:#eee !important; border-color:#ddd !important;}
+      .meter > i{background:#999 !important;}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- background blobs -->
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="wrap">
+    <!-- HERO -->
+    <section class="gcard hero" aria-label="Header">
+      <div class="surface">
+        <div class="top">
+          <div class="nameblock">
+            <h1 class="name">Cristina <span style="opacity:.92">Croitoru</span></h1>
+            <p class="role">Graphic / Motion Designer</p>
+          </div>
+
+          <!-- ✅ Add photo by changing the src below -->
+          <div class="photo" title="Photo">
+            <img src="cristina.jpg" alt="Cristina Croitoru">
+          </div>
+        </div>
+
+        <div class="chips">
+          <div class="chip"><span class="spark"></span><span>Brand-safe design</span></div>
+          <div class="chip"><span class="spark"></span><span>Motion + video edits</span></div>
+          <div class="chip"><span class="spark"></span><span>Web / print / social</span></div>
+          <div class="chip"><span class="spark"></span><span>AI-assisted workflow</span></div>
+        </div>
+    </section>
+
+    <div style="height:18px"></div>
+
+    <div class="grid">
+      <!-- SIDEBAR -->
+      <aside class="sideStack">
+        <!-- PROFILE -->
+        <section class="gcard card">
+          <div class="surface">
+            <div class="sectionTitle">
+              <h2>Profile</h2><div class="line"></div>
+            </div>
+            <p class="profile">
+              Creative Graphic and Motion Designer with experience across digital, print, and video content.
+              I enjoy turning ideas into clean, engaging visuals while keeping everything aligned with brand standards.
+              I stay updated with design trends and tools and I’m always looking for ways to improve the final result.
+            </p>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="gcard card">
+          <div class="surface">
+            <div class="sectionTitle">
+              <h2>Contact</h2><div class="line"></div>
+            </div>
+
+            <div class="contact">
+              <div class="item">
+                <div class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M4 7.5l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 7.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                  <p class="label">Email</p>
+                  <p class="value"><a href="mailto:croitoru.cristina10@gmail.com">croitoru.cristina10@gmail.com</a></p>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3.5l3.2 1.4a1 1 0 0 1 .6.9l.2 3a1 1 0 0 1-.6 1l-1.9.9a13 13 0 0 0 6.1 6.1l.9-1.9a1 1 0 0 1 1-.6l3 .2a1 1 0 0 1 .9.6l1.4 3.2a1 1 0 0 1-.3 1.1c-1 .9-2.4 1.5-3.9 1.5C10.5 21.1 3 13.5 3 6.8c0-1.5.6-2.9 1.5-3.9a1 1 0 0 1 1.1-.3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <p class="label">Phone</p>
+                  <p class="value"><a href="tel:+40746463999">(+40) 746 463 999</a></p>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.1 0l1.4-1.4a5 5 0 0 0 0-7.1 5 5 0 0 0-7.1 0L10.6 4.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7.1 0L5.5 12.4a5 5 0 0 0 0 7.1 5 5 0 0 0 7.1 0l.8-.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                  <p class="label">Portfolio</p>
+                  <p class="value"><a href="https://www.behance.net/criscroitoru" target="_blank" rel="noreferrer">behance.net/criscroitoru</a></p>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z" stroke="currentColor" stroke-width="2"/><path d="M22 21a8 8 0 0 0-12.5-6.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                  <p class="label">LinkedIn</p>
+                  <p class="value"><a href="https://ro.linkedin.com/in/cristina-croitoru-a34719203" target="_blank" rel="noreferrer">cristina-croitoru</a></p>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" stroke="currentColor" stroke-width="2"/><path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div>
+                  <p class="label">Location</p>
+                  <p class="value">Bucharest, Romania (Sector 1, Aviatiei)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="gcard card">
+          <div class="surface">
+            <div class="sectionTitle">
+              <h2>Skills</h2><div class="line"></div>
+            </div>
+
+            <div class="skills">
+              <span class="tag">Graphic Design</span>
+              <span class="tag">Motion Design</span>
+              <span class="tag">Video Editing</span>
+              <span class="tag">Branding</span>
+              <span class="tag">Social Media Content</span>
+              <span class="tag">Web Banners</span>
+              <span class="tag">Print Materials</span>
+              <span class="tag">UI (Figma)</span>
+              <span class="tag">AI-assisted Design</span>
+            </div>
+
+            <div style="height:14px"></div>
+
+            <div class="sectionTitle">
+              <h2>Tools</h2><div class="line"></div>
+            </div>
+            <div class="skills">
+              <span class="tag">Adobe Photoshop</span>
+              <span class="tag">Adobe Illustrator</span>
+              <span class="tag">Adobe InDesign</span>
+              <span class="tag">Premiere Pro</span>
+              <span class="tag">After Effects</span>
+              <span class="tag">Figma</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- EDUCATION + LANGUAGES -->
+        <section class="gcard card">
+          <div class="surface">
+            <div class="sectionTitle">
+              <h2>Education</h2><div class="line"></div>
+            </div>
+
+            <div class="eduRow">
+              <div class="edu">
+                <strong>Graphic Design Diploma</strong>
+                <span>STEP IT Academy — Bucharest (2020–2021)</span>
+              </div>
+              <div class="edu">
+                <strong>High School Graduate</strong>
+                <span>National Economic College Andrei Barseanu (2009–2013)</span>
+              </div>
+            </div>
+
+            <div style="height:14px"></div>
+
+            <div class="sectionTitle">
+              <h2>Languages</h2><div class="line"></div>
+            </div>
+
+            <div class="lang">
+              <div class="bar">
+                <div class="barTop">
+                  <strong>Romanian</strong><span>Native</span>
+                </div>
+                <div class="meter"><i style="width:100%"></i></div>
+              </div>
+              <div class="bar">
+                <div class="barTop">
+                  <strong>English</strong><span>Proficient</span>
+                </div>
+                <div class="meter"><i style="width:80%"></i></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="mainStack">
+        <section class="gcard card">
+          <div class="surface">
+            <div class="sectionTitle">
+              <h2>Experience</h2><div class="line"></div>
+            </div>
+
+            <div class="timeline">
+              <!-- NOVOMATIC -->
+              <article class="xp">
+                <span class="node" aria-hidden="true"></span>
+                <div class="xpTop">
+                  <div>
+                    <h3 class="xpRole">Graphic / Motion Designer</h3>
+                    <p class="xpCompany">NOVOMATIC S.R.L. • Bucharest, Romania</p>
+                  </div>
+                  <div class="xpMeta">
+                    <div>01/10/2024 – Present</div>
+                    <div style="margin-top:4px; opacity:.9">Online + Offline Campaigns</div>
+                  </div>
+                </div>
+
+                <p class="xpBody">
+                  I create a wide range of visual content, including graphics and motion videos, for both online and offline
+                  advertising campaigns. My work spans multiple platforms—from TV sports channels and social media videos to
+                  website banners, outdoor posters, billboards, and LED screens.
+                </p>
+
+                <ul class="xpBullets">
+                  <li>Design and deliver creatives across TV, social, web, outdoor, and LED display formats.</li>
+                  <li>Use Adobe Photoshop, Illustrator, Premiere Pro, and After Effects for end-to-end production.</li>
+                  <li>Enhance quality and speed with AI-powered tools and continuous trend monitoring.</li>
+                </ul>
+
+                <div class="pillRow">
+                  <span class="pill">Photoshop</span>
+                  <span class="pill">Illustrator</span>
+                  <span class="pill">Premiere Pro</span>
+                  <span class="pill">After Effects</span>
+                  <span class="pill">OOH / LED</span>
+                </div>
+              </article>
+
+              <!-- BLEU PHARMA -->
+              <article class="xp">
+                <span class="node" aria-hidden="true"></span>
+                <div class="xpTop">
+                  <div>
+                    <h3 class="xpRole">Graphic / Motion Designer (Limited Contract)</h3>
+                    <p class="xpCompany">BLEU PHARMA S.R.L. • Bucharest, Romania</p>
+                  </div>
+                  <div class="xpMeta">
+                    <div>01/07/2024 – 01/10/2024</div>
+                    <div style="margin-top:4px; opacity:.9">Web + Print + Video</div>
+                  </div>
+                </div>
+
+                <p class="xpBody">
+                  I created web, print, and video content while ensuring all materials matched brand standards and campaign objectives.
+                  I worked on website banners, newsletters, brochures, flyers, and event banners, plus video content for company events and VSLs.
+                </p>
+
+                <ul class="xpBullets">
+                  <li>Edited vertical and landscape videos in Premiere Pro and After Effects.</li>
+                  <li>Managed projects from concept to final delivery.</li>
+                  <li>Kept designs clean, consistent, and on-brand across formats.</li>
+                </ul>
+
+                <div class="pillRow">
+                  <span class="pill">VSLs</span>
+                  <span class="pill">Event Content</span>
+                  <span class="pill">InDesign</span>
+                  <span class="pill">Premiere Pro</span>
+                  <span class="pill">After Effects</span>
+                </div>
+              </article>
+
+              <!-- ZENKO AI -->
+              <article class="xp">
+                <span class="node" aria-hidden="true"></span>
+                <div class="xpTop">
+                  <div>
+                    <h3 class="xpRole">Graphic / Motion Designer (Limited Contract)</h3>
+                    <p class="xpCompany">S.C. ZENKO AI S.R.L. • Bucharest, Romania</p>
+                  </div>
+                  <div class="xpMeta">
+                    <div>01/12/2023 – 15/06/2024</div>
+                    <div style="margin-top:4px; opacity:.9">Social + UI + Video</div>
+                  </div>
+                </div>
+
+                <p class="xpBody">
+                  I developed creative materials including social media graphics, website banners, brochures, and flyers.
+                  I also created and managed social media content across Instagram, Facebook, LinkedIn, and TikTok, including scheduling and copywriting.
+                </p>
+
+                <ul class="xpBullets">
+                  <li>Designed UI elements in Figma to support website user experience.</li>
+                  <li>Produced videos for YouTube, Meta, and TikTok from concept to final delivery.</li>
+                  <li>Used AI tools to generate assets such as backgrounds, voices, and visual elements.</li>
+                </ul>
+
+                <div class="pillRow">
+                  <span class="pill">Figma</span>
+                  <span class="pill">Social Media</span>
+                  <span class="pill">YouTube / Meta / TikTok</span>
+                  <span class="pill">AI Assets</span>
+                </div>
+              </article>
+
+              <!-- BG UNITED TECH -->
+              <article class="xp">
+                <span class="node" aria-hidden="true"></span>
+                <div class="xpTop">
+                  <div>
+                    <h3 class="xpRole">Graphic / Motion Designer</h3>
+                    <p class="xpCompany">BG UNITED TECH S.R.L. • Bucharest, Romania</p>
+                  </div>
+                  <div class="xpMeta">
+                    <div>01/10/2022 – 01/11/2023</div>
+                    <div style="margin-top:4px; opacity:.9">Web + Social + Video</div>
+                  </div>
+                </div>
+
+                <p class="xpBody">
+                  I developed and executed creative concepts aligned with brand guidelines using Adobe Creative Suite.
+                  I managed graphic design for two websites, including banners and landing pages, and worked with PrestaShop for content updates.
+                </p>
+
+                <ul class="xpBullets">
+                  <li>Designed and updated website banners and landing pages.</li>
+                  <li>Created social media banners and video edits to improve brand visibility.</li>
+                </ul>
+
+                <div class="pillRow">
+                  <span class="pill">PrestaShop</span>
+                  <span class="pill">Landing Pages</span>
+                  <span class="pill">Brand Guidelines</span>
+                </div>
+              </article>
+
+              <!-- VICTORIA ART -->
+              <article class="xp">
+                <span class="node" aria-hidden="true"></span>
+                <div class="xpTop">
+                  <div>
+                    <h3 class="xpRole">Graphic / Motion Designer</h3>
+                    <p class="xpCompany">S.C. VICTORIA ART PRODUCT S.R.L. • Bucharest, Romania</p>
+                  </div>
+                  <div class="xpMeta">
+                    <div>01/03/2022 – 01/10/2022</div>
+                    <div style="margin-top:4px; opacity:.9">Daily Design Support</div>
+                  </div>
+                </div>
+
+                <p class="xpBody">
+                  I managed daily design tasks for a medium-sized company, focusing on layout and production materials.
+                  I created assets across advertising, social media, web, and video editing while keeping everything aligned with brand identity.
+                </p>
+
+                <ul class="xpBullets">
+                  <li>Designed social media posts and marketing materials for ongoing campaigns.</li>
+                  <li>Supported multiple channels using Adobe Creative Suite.</li>
+                </ul>
+
+                <div class="pillRow">
+                  <span class="pill">Daily Production</span>
+                  <span class="pill">Social Assets</span>
+                  <span class="pill">Marketing Design</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="foot">
+          Portfolio available upon request • References available upon request
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
+```
